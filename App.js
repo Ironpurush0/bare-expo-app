@@ -1,21 +1,62 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
+import LoginScreen from './src/components/LoginScreen';
+import CallScreen from './src/components/CallScreen';
+import SplashScreen from './src/components/SplashScreen';
+import GroupCallScreen from './src/components/GroupCallScreen';
+import UserList from './src/components/UserList';
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {}
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Splash">
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="Splash"
+            component={SplashScreen}
+          />
+
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="Login"
+            component={LoginScreen}
+          />
+
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="UserList"
+            component={UserList}
+          />
+
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="GroupCallScreen"
+            component={GroupCallScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
