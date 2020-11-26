@@ -3,7 +3,10 @@ const http = require("http");
 const socketio = require("socket.io");
 const { ExpressPeerServer } = require("peer");
 const mongoose = require("mongoose");
-const config = require("config");
+// const config = require("config");
+
+
+const URI = "mongodb+srv://tonystark:0OAgDGhfmYx0E1MH@cluster0.qbrbf.mongodb.net/test?retryWrites=true&w=majority"
 
 const app = express();
 
@@ -22,8 +25,18 @@ const peerServer = ExpressPeerServer(server, {
 
 app.use("/mypeer", peerServer);
 
-//** Config */
-const db = config.get("mongoURI");
+// //** Config */
+// const db = URI;
+
+//Connecting to the db
+mongoose.connect(URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+}).then(() => console.log("mongoose db connected."))
+.catch(e => console.log(e.message))
+
 
 //* Websocket *//
 io.on("connection", function (socket) {});
